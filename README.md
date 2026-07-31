@@ -1,23 +1,48 @@
-# 💳 Credit Card Validator
+cn=0
+def name():
+    global cn
+    cn=int(input("Enter your credit card number:"))
+    if len(str(cn))==15:
+        if(str(cn)[0:2] in ["34","37"]):
+           nm="AMEX"
+        else:
+            nm="Enter valid credit card no."
+    elif len(str(cn))==16:
+        if (str(cn)[0:2] in ["51","52","53","54","55"]):
+            nm="MASTERCARD"
+        elif (str(cn))[0]=="4":
+            nm="VISA"
+        else:
+            nm="Enter valid credit card no."
+    else:
+        nm="Enter valid credit card no."
+    return nm
 
-## 🚀 Overview  
-A Python project that detects credit card type (VISA, MASTERCARD, AMEX) and validates numbers using the Luhn Algorithm.
 
-## ✨ Features  
-- Card type detection  
--  Luhn Algorithm validation  
--  Uses lists and loops for logic  
--  Beginner-friendly implementation  
 
-## 🧠 How It Works  
-- Takes user input  
-- Identifies card type from number pattern  
-- Reverses digits and processes alternates  
-- Applies Luhn Algorithm to verify validity  
+def luhn():
+    l=[]
+    global cn
+    l2=[]
+    sums=0
+    a=0
+    cn2=(str(cn)[::-1])
+    for j in range(1,len(cn2),2):
+        l.append(int(cn2[j]))
+    for i in l:
+        if i*2 >= 10:
+            l2.append((i*2)-9)
+        else:
+            l2.append(i*2)
+    for i in l2:
+        sums+=i
+    for j in range(0,len(cn2),2):
+        sums+=int(cn2[j])
+    if sums%10==0:
+        print("your credit card number is valid")
+    else:
+        print("your credit card number is invalid")
 
-## 🛠️ Tech Stack  
--  Python 3  
 
-## ▶️ Run the Project  
-```bash
-python main.py
+print(name())
+luhn()
